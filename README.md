@@ -3,7 +3,7 @@
 
 ## Diagram
 
-<img src="https://github.com/prayag-sangode/cloudbuild-cloudrun-html-app/blob/main/cloud-build-cloud-run.PNG" alt="Alt text" title="CI/CD Pipeline using Cloud Build & Cloud Run">
+<img src="https://github.com/prayag-sangode/cloudbuild-cloudrun-html-app/blob/master/cloudrun-cloudbuild.png" alt="Alt text" title="CI/CD Pipeline using Cloud Build & Cloud Run">
 
 ## Services -
 
