@@ -16,7 +16,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   id: Deploy
   entrypoint: gcloud
-  args: ['run', 'deploy', '${_SERVICE_NAME}', '--image', 'asia-south1-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA', '--region', '${_REGION}', '--port', '80' ]
+  args: ['run', 'deploy', '${_SERVICE_NAME}', '--image', 'asia-south1-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA', '--region', '${_REGION}', '--port', '80', --allow-unauthenticated ]
 images:
   - '${_ARTIFACT_REPO_LOC}-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA'
 substitutions:
