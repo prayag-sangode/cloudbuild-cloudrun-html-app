@@ -1,0 +1,41 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - '${_ARTIFACT_REPO_LOC}-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA'
+  - '.'
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - '${_ARTIFACT_REPO_LOC}-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA'
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', '${SERVICE-NAME}', '--image', 'asia-south1-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA', '--region', '${_REGION}']
+images:
+  - '${_ARTIFACT_REPO_LOC}-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:$SHORT_SHA'
+substitutions:
+  _GCP_PRPOJECT_ID: pune-powerhouse 
+  _ARTIFACT_REPO: apps-repo  
+  _ARTIFACT_REPO_LOC: asia-south1  
+  _APP: html-app  
+  _SERVICE-NAME: cloudrun-html-svc
+  _REGION: asia-south1
+
+#- name: 'gcr.io/cloud-builders/gcloud'
+#  id: Deploy
+#  entrypoint: 'bash'
+#  args:
+#    - '-c'
+#    - |
+#         PROJECT=$$(gcloud config get-value core/project)          
+#         gke-gcloud-auth-plugin --version
+#         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+#         gcloud container clusters get-credentials "gke-cluster" --project "${_GCP_PRPOJECT_ID}"  --zone "asia-south1-b"  
+#         sed -i 's|asia-south1-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:.*|asia-south1-docker.pkg.dev/${_GCP_PRPOJECT_ID}/${_ARTIFACT_REPO}/${_APP}:${SHORT_SHA}|' deployment.yaml 
+#         kubectl apply -f deployment.yaml
+
