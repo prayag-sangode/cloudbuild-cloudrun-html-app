@@ -12,6 +12,8 @@
 - Artifact Registry to store docker images
 - CloudBuild to build CI/CD pipeline - trigger is created
 
+## Add github repo as external repo in GCP cloud source repo && Create Cloud Build trigger
+
 ## Create Artifact Registry
 ```sh
 gcloud artifacts repositories create apps-repo --repository-format=docker --location=asia-south1-b --description="Docker repository for html app"
